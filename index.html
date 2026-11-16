@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#102c35" />
+    <meta name="description" content="Inventaire du matériel électrique domestique de la classe Seconde MELEC." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="catalog.css" />
+    <title>Stock MELEC</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#accueil" aria-label="Stock MELEC, accueil">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M18.8 3 8.5 17h6.7L13.8 29l10-15h-6.7L18.8 3Z"/></svg></span>
+          <span><strong>Stock MELEC</strong><small>Le matériel de la classe, au même endroit</small></span>
+        </a>
+        <button class="icon-button" id="installBtn" hidden aria-label="Installer l’application" title="Installer l’application"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"/></svg></button>
+      </header>
+
+      <main>
+        <section class="hero" id="accueil">
+          <div class="hero-copy"><p class="eyebrow">SECONDE MELEC · ÉLECTRICITÉ DOMESTIQUE</p><h1>Votre stock,<br /><span>bien branché.</span></h1><p class="hero-desc">Faites l’inventaire du matériel de la classe et signalez facilement ce qui manque.</p></div>
+          <div class="hero-art" aria-hidden="true"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="art-card"><span class="art-line line-one"></span><span class="art-line line-two"></span><span class="art-line line-three"></span><span class="art-dot"></span><span class="art-spark">✳</span></div><span class="art-caption">ATELIER<br />DOMESTIQUE</span></div>
+        </section>
+
+        <section class="institution-strip" aria-label="Établissements partenaires"><div class="institution-mark academy-mark"><img src="assets/logo-academie-creteil.png" alt="Académie de Créteil" /><span>Académie de Créteil</span></div><span class="institution-divider" aria-hidden="true"></span><div class="institution-mark school-mark"><img src="assets/logo-lycee-lucie-aubrac.png" alt="Lycée polyvalent Lucie Aubrac de Pantin" /><span>Lycée polyvalent Lucie Aubrac · Pantin</span></div></section>
+
+        <section class="stats" aria-label="Résumé du stock">
+          <article class="stat-card"><span class="stat-icon teal">▦</span><div><strong id="statProducts">0</strong><span>références</span></div></article>
+          <article class="stat-card"><span class="stat-icon blue">◉</span><div><strong id="statUnits">0</strong><span>unités en stock</span></div></article>
+          <article class="stat-card alert-stat"><span class="stat-icon coral">!</span><div><strong id="statMissing">0</strong><span>à réapprovisionner</span></div></article>
+        </section>
+
+        <section class="content-grid">
+          <div class="inventory-panel panel">
+            <div class="section-heading"><div><p class="eyebrow">VUE D’ENSEMBLE</p><h2>Inventaire</h2></div><button class="primary-button" id="addProductBtn"><span>＋</span> Ajouter un article</button></div>
+            <div class="toolbar"><label class="search-box"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="Rechercher un matériel…" /></label><label class="select-wrap"><span class="sr-only">Filtrer par catégorie</span><select id="categoryFilter"><option value="all">Toutes les catégories</option></select></label><label class="select-wrap status-filter"><span class="sr-only">Filtrer par état</span><select id="statusFilter"><option value="all">Tous les états</option><option value="available">En stock</option><option value="low">À réapprovisionner</option><option value="out">En rupture</option></select></label></div>
+            <div class="inventory-list" id="inventoryList"></div>
+            <details class="catalog-panel" id="catalogPanel"><summary><span class="catalog-symbol">▦</span><span><strong>Catalogue d’appareillage</strong><small>Choisir rapidement un matériel courant</small></span><span class="catalog-count" id="catalogCount">0 articles</span></summary><div class="catalog-controls"><input id="catalogSearch" type="search" placeholder="Ex. va-et-vient, boîte…" aria-label="Rechercher dans le catalogue" /><label class="select-wrap"><span class="sr-only">Filtrer le catalogue par catégorie</span><select id="catalogCategory"><option value="all">Toutes les catégories</option></select></label></div><div class="catalog-list" id="catalogList"></div></details>
+            <div class="empty-state" id="emptyState" hidden><span class="empty-symbol">⌕</span><h3>Aucun article pour le moment</h3><p>Ajoutez les matériels présents dans votre salle pour commencer l’inventaire.</p><button class="secondary-button" id="emptyAddBtn">＋ Ajouter mon premier article</button></div>
+            <div class="no-results" id="noResults" hidden>Aucun article ne correspond à votre recherche.</div>
+            <div class="list-footer"><span id="resultCount">0 article</span><button class="text-button" id="exportBtn">Exporter l’inventaire <span>↗</span></button></div>
+          </div>
+
+          <aside class="side-column">
+            <section class="missing-panel panel">
+              <div class="section-heading compact"><div><p class="eyebrow">SUIVI RAPIDE</p><h2>À signaler</h2></div><span class="count-pill" id="missingPill">0</span></div>
+              <p class="panel-intro">Un article manque ou est abîmé ? Notez-le ici pour y penser au prochain réassort.</p>
+              <form id="missingForm" class="missing-form"><label for="missingItem">Matériel concerné</label><select id="missingItem"><option value="">Choisir un article…</option></select><label for="missingNote">Détail <span>(facultatif)</span></label><input id="missingNote" maxlength="100" placeholder="Ex. cassé pendant le TP" /><button class="report-button" type="submit"><span>＋</span> Signaler un manque</button></form>
+              <div class="missing-list" id="missingList"></div>
+              <div class="missing-empty" id="missingEmpty"><span>✓</span><p>Tout va bien pour le moment.<br />Aucun manque signalé.</p></div>
+            </section>
+            <section class="tip-card"><div class="tip-icon">✦</div><div><strong>Le bon réflexe</strong><p>Mettez à jour les quantités après chaque séance pour garder un stock fiable.</p></div></section>
+          </aside>
+        </section>
+        <footer class="app-footer"><span>Stock MELEC</span><span>Un atelier bien rangé commence par un bon inventaire.</span><button id="resetBtn" class="reset-button">Effacer les données locales</button></footer>
+      </main>
+    </div>
+
+    <dialog id="productDialog" class="dialog"><form id="productForm" method="dialog"><div class="dialog-heading"><div><p class="eyebrow">NOUVELLE RÉFÉRENCE</p><h2>Ajouter un article</h2></div><button type="button" class="close-button" data-close aria-label="Fermer">×</button></div><label for="productName">Nom du matériel</label><input id="productName" name="name" required maxlength="70" placeholder="Ex. interrupteur va-et-vient" /><div class="form-row"><div><label for="productCategory">Catégorie</label><select id="productCategory" name="category" required></select></div><div><label for="productUnit">Unité</label><select id="productUnit" name="unit"><option>pièces</option><option>mètres</option><option>lots</option><option>boîtes</option></select></div></div><div class="form-row"><div><label for="productQuantity">Quantité comptée</label><input id="productQuantity" name="quantity" type="number" min="0" step="1" value="0" required /></div><div><label for="productThreshold">Alerte sous</label><input id="productThreshold" name="threshold" type="number" min="0" step="1" value="2" required /><small class="field-hint">Seuil de réapprovisionnement</small></div></div><div class="dialog-actions"><button type="button" class="secondary-button" data-close>Annuler</button><button class="primary-button" type="submit">Enregistrer l’article</button></div></form></dialog>
+    <dialog id="quantityDialog" class="dialog"><form id="quantityForm" method="dialog"><div class="dialog-heading"><div><p class="eyebrow">MISE À JOUR DU STOCK</p><h2 id="quantityTitle">Modifier la quantité</h2></div><button type="button" class="close-button" data-close aria-label="Fermer">×</button></div><p class="quantity-subtitle" id="quantitySubtitle"></p><label for="quantityValue">Quantité actuelle</label><input id="quantityValue" type="number" min="0" step="1" required /><div class="dialog-actions"><button type="button" class="secondary-button" data-close>Annuler</button><button class="primary-button" type="submit">Mettre à jour</button></div></form></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
+
