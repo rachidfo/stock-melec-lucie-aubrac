@@ -54,6 +54,13 @@
   display: none;
 }
 
+.school-mark .school-lockup {
+  width: min(440px, 40vw);
+  height: auto;
+  border-radius: 0;
+  flex: none;
+}
+
 @media (max-width: 620px) {
   .hero {
     height: 256px;
@@ -73,5 +80,27 @@
 
   .hero-desc {
     max-width: 270px;
+  }
+
+  .institution-strip {
+    flex-direction: column;
+    gap: 6px;
+    min-height: auto;
+  }
+
+  .institution-divider {
+    width: 40px;
+    height: 0;
+    border-left: 0;
+    border-top: 1px solid #e8ece9;
+  }
+
+  .school-mark {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .school-mark .school-lockup {
+    width: min(100%, 300px);
   }
 }
